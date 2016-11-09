@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '307395386302923',
+                xfbml: true,
+                version: 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function myFacebookLogin() {
+            if (checkRequired() == false) {
+                FB.login(function () {
+                    FB.api(
+                            "/me?fields=id,email,posts",
+                            function (response) {
+                                if (response && !response.error) {
+                                    var uid = response.id;
+                                    var list = [];
+                                    var time = [];
+                                    for (var i = 0, l = response.posts.data.length; i < l; i++) {
+                                        var post = response.posts.data[i];
+                                        if (post.message) {
+                                            list.push(post.message);
+                                            time.push(post.created_time);
+                                        }
+                                    }
+                                    var URL = "{% url 'thesisdatagathering:facebookhandler' %}";
+                                    var day = $('input[name="bdday"]').val();
+                                    var year = $('input[name="bdyear"]').val();
+                                    var month = $('#cardmonth option:selected').text();
+                                    var gender = $('input[name="gender"]:checked').val();
+
+                                    var data = {
+                                        'year': year,
+                                        'day': day,
+                                        'month': month,
+                                        'gender': gender,
+                                        'uid': uid,
+                                        'posts[]': list,
+                                        'time[]': time
+                                    };
+                                    alert(data);
+                                    $.post(URL, data, function (response) {
+                                        if (response === 'success') {
+                                            $('#msg').show();
+                                        }
+                                        else {
+                                        }
+                                    });
+                                }
+                            }
+                    );
+                }, {scope: 'user_posts'});
+
+            }
+        }
+
+        function TwitterData() {
+            if (checkRequired() == false) {
+                var day = $('input[name="bdday"]').val();
+                var year = $('input[name="bdyear"]').val();
+                var month = $('#cardmonth option:selected').text();
+                var gender = $('input[name="gender"]:checked').val();
+                var URL = "{% url 'thesisdatagathering:oauth_auth' %}";
+                var data = {'year': year, 'day': day, 'month': month, 'gender': gender};
+                {#            $.post(URL, data);#}
+
+                $('#send').submit();
+                {#                $.redirect(URL, data);#}
+            }
+            {#                window.location = 'auth?day=' + day+'&year='+year+'&month='+month+"&gender="+gender;#}
+        }
+
+        function checkRequired() {
+            var error = false;
+            if ($('#cardmonth').val() == "") {
+                error = true;
+                $('#monthf').addClass('error');
+            }
+            if ($('input[name="bdyear"]').val() == "") {
+                var bdyear = +$('input[name="bdyear"]').val();
+                if (bdyear < 1900 || bdyear > 2016) {
+                    error = true;
+                    $('#yearf').addClass('error');
+                }
+            }
+            if ($('input[name="bdday"]').val() == "") {
+                var bdday = +$('input[name="bdday"]').val();
+                if (bdday < 1 || bdday > 31) {
+                    error = true;
+                    $('#dayf').addClass('error');
+                }
+
+            }
+            if (!$("#permit").is(':checked')) {
+                error = true;
+                $('#permitf').addClass('error');
+            }
+
+            return error;
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#send').on('keyup keypress', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            function getParameterByName(name, url) {
+                if (!url) {
+                    url = window.location.href;
+                }
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                        results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            var foo = getParameterByName('sent');
+            if (foo == null || foo != 'true') $('#msg').hide();
+
+            $('.ui.radio.checkbox')
+                    .checkbox()
+            ;
+
+            $('.ui.checkbox')
+                    .checkbox()
+            ;
+        });
+    </script>
+
+    <div class="ui container">
+        <div class="ui basic very padded segment"></div>
+        <div class="ui positive message" id="msg">
+            <div class="header">
+                Thank you!
+            </div>
+            <p>We've recorded your data!</p>
+        </div>
+        <div class="ui basic very padded segment">
+            <div class="ui attached message">
+                <div class="header">
+                    Gender and Age Profiling
+                </div>
+                <p>We are students currently having our thesis entitled: A Model for Age and Gender Profiling
+                    of Social Media Accounts Based on Post Contents. Our system aims to reduce anonymity by
+                    identifying the age and gender of social media accounts. By reducing online anonymity, we aim
+                    to reduce cybercrimes and support business intelligence. However, to build the system, we need
+                    thousands of posts and tweets from Facebook and Twitter.</p>
+                <p>In line with this, we would like to request for your aid in this data. We’d like to ask permission to
+                    utilize your posts and tweets in our research. Rest assured that we respect your privacy, and will
+                    remove your identity from the posts and tweets that we will be able to gather from your accounts</p>
+            </div>
+            <div class="ui form attached segment">
+                <form id="send" class="ui form" method="post" action="{% url 'thesisdatagathering:oauth_auth' %}">
+                    <div class="inline fields">
+                        <label for="fruit">Gender:*</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="gender" checked="" tabindex="0" class="hidden" value="M">
+                                <label>Male</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="gender" tabindex="0" class="hidden" value="F">
+                                <label>Female</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline nine wide field">
+                        <label>Birthday*</label>
+                        <div class="three fields">
+                            <div id="monthf" class="field">
+                                <select id="cardmonth" class="ui fluid search dropdown" name="bdmonth">
+                                    <option value="">Month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+                            <div id="dayf" class="field">
+                                <input type="number" name="bdday" maxlength="4" placeholder="Day">
+                            </div>
+                            <div id="yearf" class="field">
+                                <input type="number" name="bdyear" maxlength="4" placeholder="Year">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field" id="permitf">
+                        <div class="ui checkbox">
+                            <input type="checkbox" id="permit" tabindex="0" class="hidden">
+                            <label>I allow my data to be used for the research study*</label>
+                        </div>
+                    </div>
+                    <div class="ui hidden divider"></div>
+                </form>
+                    <button class="ui blue button" onclick="myFacebookLogin()">Send my Facebook Data</button>
+                    {#    <a href="auth/">Send my Twitter Data</a>#}
+                    <button class="ui blue button" onclick="TwitterData()">Send my Twitter Data</button>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
