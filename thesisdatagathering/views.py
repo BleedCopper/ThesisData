@@ -1,18 +1,10 @@
-from django.shortcuts import render
 from django.conf import settings
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
-from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
 from twython import Twython
-from sklearn.externals import joblib
-from datetime import datetime
-
 from thesisdatagathering.DataCleaner import DataCleaner
-from thesisdatagathering.POSFeature import POSFeature
 from dateutil.parser import parse
 # Create your views here.
 from thesisdatagathering.models import User, Post
@@ -73,10 +65,10 @@ def facebookhandler(request):
             if(stat):
                 for post,time in zip(posts,times):
                     date_object = parse(time)
-                    posFeature = POSFeature(dc.clean_data_facebook(post))
-                    test = [posFeature.nVerbs, posFeature.nAdjectives]
+                    # posFeature = POSFeature(dc.clean_data_facebook(post))
+                    # test = [posFeature.nVerbs, posFeature.nAdjectives]
 
-                    Post.objects.create(user=user, text=post, time=date_object.time(), verbs=posFeature.nVerbs, adjectives=posFeature.nAdjectives)
+                    Post.objects.create(user=user, text=post, time=date_object.time())
 
 
                     # print('Message: ' + post)
@@ -139,8 +131,8 @@ def thanks(request, redirect_url='/thesisdatagathering?sent=true'):
 
             date_object = parse(date)
 
-            posFeature = POSFeature(dc.clean_data_twitter(text))
-            test = [posFeature.nVerbs, posFeature.nAdjectives]
+            # posFeature = POSFeature(dc.clean_data_twitter(text))
+            # test = [posFeature.nVerbs, posFeature.nAdjectives]
 
-            Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time(), verbs=posFeature.nVerbs, adjectives=posFeature.nAdjectives)
+            Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
     return HttpResponseRedirect(redirect_url)
