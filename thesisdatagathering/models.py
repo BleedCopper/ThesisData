@@ -11,7 +11,4 @@ class Post(models.Model):
     user = models.ForeignKey(User)
     text = models.CharField(max_length=1000)
     time = models.TimeField()
-    verbs = models.IntegerField(null=True, blank=True)
-    adjectives = models.IntegerField(null=True, blank=True)
-    nouns = models.IntegerField(null=True, blank=True)
 

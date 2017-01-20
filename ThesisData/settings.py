@@ -11,21 +11,33 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+env=environ.Env(
+    SECRET_KEY=str,
+    DEBUG=(bool, False),
+    ALLOWED_HOSTS=(list, ['127.0.0.1']),
+    DATABASE_URL=(str, 'sqlite:///%s' % os.path.join(BASE_DIR, 'db.sqlite3')),
+    TWITTER_KEY=str,
+    TWITTER_SECRET=str
+)
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0w##ng%0j!l+rgr4uh_$8f2us4r2y5upk15)0!ftmxueyqcu!1'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -78,15 +90,7 @@ WSGI_APPLICATION = 'ThesisData.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'thesisdata',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'OPTIONS': {'charset': 'utf8mb4'},
-    }
+    'default': env.db()
 }
 
 
@@ -128,8 +132,8 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, '/thesisdatagathering/static/')
 STATIC_URL = '/static/'
-TWITTER_KEY = '6Ou9SSfowTYRYDsQJDX2g6pcV'
-TWITTER_SECRET = '6OT7ybjNe6HL2kKa7SM3hXnW4dwtziWfFroiFHoSwVPV49nRnR'
+TWITTER_KEY = env('TWITTER_KEY')
+TWITTER_SECRET = env('TWITTER_SECRET')
 
 LOGIN_URL='/thesisdatagathering/'
 LOGIN_REDIRECT_URL='/thesisdatagathering'
