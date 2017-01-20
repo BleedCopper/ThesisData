@@ -1,7 +1,7 @@
 Django
 django-environ
 gunicorn
-mysqlclient
+mysqldb
 oauthlib
 python-dateutil
 requests-oauthlib
