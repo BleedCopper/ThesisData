@@ -1,8 +1,8 @@
 Django
 django-environ
 gunicorn
-psycopg2
 whitenoise
 python-dateutil
 requests-oauthlib
 twython
+psycopg2
