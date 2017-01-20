@@ -4,3 +4,6 @@
 *.env
 .idea/workspace.xml
 *.xml
+.idea/ThesisData.iml
+*.name
+.idea/dataSources.ids
