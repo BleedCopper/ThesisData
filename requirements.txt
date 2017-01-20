@@ -2,7 +2,7 @@ Django==1.10.5
 django-environ==0.4.1
 gunicorn==19.6.0
 nltk==3.2.1
-numpy==1.11.2+mkl
+numpy==1.12.0
 oauthlib==2.0.1
 PyMySQL==0.7.9
 python-dateutil==2.6.0
