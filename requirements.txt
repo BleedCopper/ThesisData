@@ -2,7 +2,6 @@ Django
 django-environ
 gunicorn
 psycopg2
-oauthlib
 python-dateutil
 requests-oauthlib
 twython
