@@ -5,4 +5,4 @@ whitenoise
 python-dateutil
 requests-oauthlib
 twython
-psycopg2
+mysqlclient
