@@ -1,1 +1,1 @@
-web: gunicorn --config gunicorn.conf thesis.wsgi
+web: gunicorn --config gunicorn.conf ThesisData.wsgi
