@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.core.urlresolvers import reverse
@@ -68,7 +70,10 @@ def facebookhandler(request):
                     # posFeature = POSFeature(dc.clean_data_facebook(post))
                     # test = [posFeature.nVerbs, posFeature.nAdjectives]
 
-                    Post.objects.create(user=user, text=post, time=date_object.time())
+                    delta = datetime.datetime.now().replace(tzinfo=None)-date_object.replace(tzinfo=None)
+                    # print("day diff: ", delta.days)
+                    if(delta.days<365):
+                        Post.objects.create(user=user, text=post, time=date_object.time())
 
 
                     # print('Message: ' + post)
@@ -130,9 +135,11 @@ def thanks(request, redirect_url='/?sent=true'):
             date = tweet['created_at']
 
             date_object = parse(date)
+            delta = datetime.datetime.now().replace(tzinfo=None)-date_object.replace(tzinfo=None)
 
             # posFeature = POSFeature(dc.clean_data_twitter(text))
             # test = [posFeature.nVerbs, posFeature.nAdjectives]
 
-            Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
+            if(delta.days<365):
+                Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
     return HttpResponseRedirect(redirect_url)
