@@ -141,5 +141,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 TWITTER_KEY = env('TWITTER_KEY')
 TWITTER_SECRET = env('TWITTER_SECRET')
 
-LOGIN_URL='/thesisdatagathering/'
-LOGIN_REDIRECT_URL='/thesisdatagathering'
+LOGIN_URL='/'
+LOGIN_REDIRECT_URL='/'

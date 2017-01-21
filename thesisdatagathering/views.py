@@ -78,7 +78,7 @@ def facebookhandler(request):
     return HttpResponse('FAIL!!!!!')
 
 @csrf_exempt
-def thanks(request, redirect_url='/thesisdatagathering?sent=true'):
+def thanks(request, redirect_url='/?sent=true'):
     oauth_token = request.session['request_token']['oauth_token']
     oauth_token_secret = request.session['request_token']['oauth_token_secret']
 
