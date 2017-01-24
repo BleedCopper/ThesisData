@@ -6,6 +6,7 @@
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '307395386302923',
+                cookie: true,
                 xfbml: true,
                 version: 'v2.8'
             });
@@ -25,16 +26,16 @@
 
         function myFacebookLogin() {
             if (checkRequired() == false) {
-                FB.login(function () {
-                    FB.api(
-                            "/me?fields=id,email,posts",
+                FB.login(function (response) {
+                    var token = response.authResponse.accessToken;
+                    var uid = response.authResponse.userID;
+                    FB.api('/me/posts',
                             function (response) {
                                 if (response && !response.error) {
-                                    var uid = response.id;
                                     var list = [];
                                     var time = [];
-                                    for (var i = 0, l = response.posts.data.length; i < l; i++) {
-                                        var post = response.posts.data[i];
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        var post = response.data[i];
                                         if (post.message) {
                                             list.push(post.message);
                                             time.push(post.created_time);
@@ -55,7 +56,7 @@
                                         'posts[]': list,
                                         'time[]': time
                                     };
-                                    alert(data);
+
                                     $.post(URL, data, function (response) {
                                         if (response === 'success') {
                                             $('#msg').show();
