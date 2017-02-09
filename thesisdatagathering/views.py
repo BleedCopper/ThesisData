@@ -1,7 +1,12 @@
 import datetime
+from collections import Counter
 
+import collections
+from nltk.corpus import stopwords
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate
+from nltk import word_tokenize
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -23,8 +28,8 @@ def auth(request):
     # public_tweets = api.user_timeline()
     # for tweet in public_tweets:
     #     print (tweet.text)
-    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
-    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET)
+    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET)
 
     # Request an authorization url to send the user to...
     callback_url = request.build_absolute_uri(reverse('thesisdatagathering:twitter_callback'))
@@ -34,9 +39,10 @@ def auth(request):
 
     print(request.POST)
     request.session['request_token'] = auth_props
-    request.session['date'] = (request.POST['bdmonth']+" "+request.POST['bdday']+","+request.POST['bdyear'])
+    request.session['date'] = (request.POST['bdmonth'] + " " + request.POST['bdday'] + "," + request.POST['bdyear'])
     request.session['gender'] = request.POST['gender']
     return HttpResponseRedirect(auth_props['auth_url'])
+
 
 @csrf_exempt
 def facebookhandler(request):
@@ -44,55 +50,61 @@ def facebookhandler(request):
     print(request.method)
     if request.method == 'POST':
         if 'posts[]' in request.POST:
-            uid=request.POST['uid']
+            uid = request.POST['uid']
             posts = request.POST.getlist('posts[]')
             times = request.POST.getlist('time[]')
             print(request.POST)
-            print(request.POST['month']+" "+request.POST['day']+","+request.POST['year'])
+            print(request.POST['month'] + " " + request.POST['day'] + "," + request.POST['year'])
 
-            date_object = parse(request.POST['month']+" "+request.POST['day']+","+request.POST['year'])
+            date_object = parse(request.POST['month'] + " " + request.POST['day'] + "," + request.POST['year'])
 
-            stat= True
+            stat = True
             try:
                 user = User.objects.get(username=uid, source="Facebook")
                 if not user.birthdate:
                     user.birthdate = date_object
-                    user.gender=request.POST['gender']
+                    user.gender = request.POST['gender']
                     user.save()
                 else:
-                    stat=False
+                    stat = False
             except User.DoesNotExist:
-                user = User.objects.create(username=uid, gender=request.POST['gender'], birthdate=date_object ,source="Facebook")
-
-            if(stat):
-                for post,time in zip(posts,times):
-                    date_object = parse(time)
+                user = User.objects.create(username=uid, gender=request.POST['gender'], birthdate=date_object,
+                                           source="Facebook")
+            tokenlist = []
+            stop_words = set(stopwords.words('english'))
+            for post, time in zip(posts, times):
+                date_object = parse(time)
                     # posFeature = POSFeature(dc.clean_data_facebook(post))
                     # test = [posFeature.nVerbs, posFeature.nAdjectives]
+                tokens = post.split()
+                tokens = [word for word in tokens if word not in stop_words]
+                tokenlist.extend(tokens)
 
-                    delta = datetime.datetime.now().replace(tzinfo=None)-date_object.replace(tzinfo=None)
+                delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
                     # print("day diff: ", delta.days)
-                    if(delta.days<365):
-                        Post.objects.create(user=user, text=post, time=date_object.time())
+                if (delta.days < 365 and stat):
+                    Post.objects.create(user=user, text=post, time=date_object.time())
 
+            counter = Counter(tokenlist)
+            data = []
+            for word,count in counter.most_common(10):
+                data.append(word)
 
-                    # print('Message: ' + post)
-            # doSomething with pieFact here...
-            return HttpResponse('success') # if everything is OK
+            request.session['plist'] = data
+
     # nothing went well
-    return HttpResponse('FAIL!!!!!')
+    return HttpResponseRedirect('/?sent=true')
+
 
 @csrf_exempt
 def thanks(request, redirect_url='/?sent=true'):
     oauth_token = request.session['request_token']['oauth_token']
     oauth_token_secret = request.session['request_token']['oauth_token_secret']
 
-
-    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-    #                   oauth_token, oauth_token_secret, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
     twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-                      oauth_token, oauth_token_secret)
-
+                      oauth_token, oauth_token_secret, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
+    #                   oauth_token, oauth_token_secret)
 
     authorized_tokens = twitter.get_authorized_tokens(request.GET['oauth_verifier'])
 
@@ -102,44 +114,55 @@ def thanks(request, redirect_url='/?sent=true'):
     )
     # login(request, user)
 
-    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-    #                   authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'], client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
-
     twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-                      authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'])
+                      authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'], client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+
+    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
+    #                   authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'])
 
     user_tweets = twitter.get_user_timeline()
     tuser = twitter.verify_credentials()
     uname = tuser['screen_name']
     print(uname)
 
-    stat= True
+    stat = True
     date_object = parse(request.session['date'])
     try:
         user = User.objects.get(username=uname, source="Twitter")
         if not user.birthdate:
             user.birthdate = date_object
-            user.gender=request.session['gender']
+            user.gender = request.session['gender']
             user.save()
         else:
-            stat=False
+            stat = False
     except User.DoesNotExist:
-        user = User.objects.create(username=uname, gender=request.session['gender'], birthdate=date_object, source="Twitter")
+        user = User.objects.create(username=uname, gender=request.session['gender'], birthdate=date_object,
+                                   source="Twitter")
 
     dc = DataCleaner()
     # print(dc.clean_data_twitter("hello @BleedCopper how are you? -Ohmie"))
-    if(stat):
-        for tweet in user_tweets:
 
-            text = tweet['text']
-            date = tweet['created_at']
+    stop_words = set(stopwords.words('english'))
+    tokenlist = []
+    for tweet in user_tweets:
 
-            date_object = parse(date)
-            delta = datetime.datetime.now().replace(tzinfo=None)-date_object.replace(tzinfo=None)
+        text = tweet['text']
+        date = tweet['created_at']
 
-            # posFeature = POSFeature(dc.clean_data_twitter(text))
-            # test = [posFeature.nVerbs, posFeature.nAdjectives]
+        date_object = parse(date)
+        delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
 
-            if(delta.days<365):
-                Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
-    return HttpResponseRedirect(redirect_url)
+        tokens = text.split()
+        tokens = [word for word in tokens if word not in stop_words]
+        tokenlist.extend(tokens)
+
+        if (delta.days < 365 and stat):
+            Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
+
+    counter = Counter(tokenlist)
+    data = []
+    for word,count in counter.most_common(10):
+        data.append(word)
+
+    request.session['plist'] = data
+    return HttpResponseRedirect('/?sent=true')

@@ -55,13 +55,12 @@
                                         'posts[]': list,
                                         'time[]': time
                                     };
-                                    alert(data);
+{#                                    alert(data);#}
                                     $.post(URL, data, function (response) {
-                                        if (response === 'success') {
-                                            $('#msg').show();
-                                        }
-                                        else {
-                                        }
+                                        if (response != 'error') {
+{#                                        alert("hey");#}
+                                        $('#msg').show();
+                                    }
                                     });
                                 }
                             }
@@ -140,7 +139,7 @@
                 return decodeURIComponent(results[2].replace(/\+/g, " "));
             }
 
-            var foo = getParameterByName('sent');
+            var foo = getParameterByName("sent");
             if (foo == null || foo != 'true') $('#msg').hide();
 
             $('.ui.radio.checkbox')
@@ -157,9 +156,9 @@
         <div class="ui basic very padded segment"></div>
         <div class="ui positive message" id="msg">
             <div class="header">
-                Thank you!
+                Top Ten Words Used
             </div>
-            <p>We've recorded your data!</p>
+            <div id="results">{% if request.session.plist %} <ol> {% for word in request.session.plist %} <li> {{ word }} </li> {% endfor %} </ol> {% endif %}  </div>
         </div>
         <div class="ui basic very padded segment">
             <div class="ui attached message">
