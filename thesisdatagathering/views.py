@@ -2,6 +2,8 @@ import datetime
 from collections import Counter
 
 import collections
+
+import nltk
 from nltk.corpus import stopwords
 from django.conf import settings
 from django.contrib import messages
@@ -71,7 +73,11 @@ def facebookhandler(request):
                 user = User.objects.create(username=uid, gender=request.POST['gender'], birthdate=date_object,
                                            source="Facebook")
             tokenlist = []
-            stop_words = set(stopwords.words('english'))
+            try:
+                stop_words = set(stopwords.words('english'))
+            except LookupError:
+                nltk.download('stopwords');
+                stop_words = set(stopwords.words('english'))
             for post, time in zip(posts, times):
                 date_object = parse(time)
                     # posFeature = POSFeature(dc.clean_data_facebook(post))
