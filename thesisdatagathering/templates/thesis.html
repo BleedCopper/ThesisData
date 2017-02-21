@@ -59,7 +59,7 @@
                                     $.post(URL, data, function (response) {
                                         if (response != 'error') {
 {#                                        alert("hey");#}
-                                        $('#msg').show();
+                                        window.location.href = "/?sent=true"
                                     }
                                     });
                                 }

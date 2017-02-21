@@ -28,8 +28,8 @@ def auth(request):
     # public_tweets = api.user_timeline()
     # for tweet in public_tweets:
     #     print (tweet.text)
-    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
-    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET)
+    # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET)
 
     # Request an authorization url to send the user to...
     callback_url = request.build_absolute_uri(reverse('thesisdatagathering:twitter_callback'))
@@ -101,10 +101,10 @@ def thanks(request, redirect_url='/?sent=true'):
     oauth_token = request.session['request_token']['oauth_token']
     oauth_token_secret = request.session['request_token']['oauth_token_secret']
 
-    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-                      oauth_token, oauth_token_secret, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
     # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-    #                   oauth_token, oauth_token_secret)
+                      # oauth_token, oauth_token_secret, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
+                      oauth_token, oauth_token_secret)
 
     authorized_tokens = twitter.get_authorized_tokens(request.GET['oauth_verifier'])
 
@@ -114,11 +114,11 @@ def thanks(request, redirect_url='/?sent=true'):
     )
     # login(request, user)
 
-    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-                      authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'], client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
-
     # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-    #                   authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'])
+    #                   authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'], client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+
+    twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
+                      authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'])
 
     user_tweets = twitter.get_user_timeline()
     tuser = twitter.verify_credentials()
