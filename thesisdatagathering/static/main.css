@@ -1,0 +1,42 @@
+.inverted.segment{
+    border-radius: 0;
+    margin:0;
+}
+.page-title{
+    font-size: 30px;
+    line-height: 35px;
+    font-weight: bolder;
+}
+.subheading{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.heading-content{
+    font-size: 16px;
+}
+
+.no-line-height{
+    line-height: 0px !important;
+}
+
+#about-us{
+   background-color:#0f0f10;
+    width: 100%;
+    color:white;
+}
+
+.name-label{
+    color:white !important;
+}
+a.email-label{
+    color: #0ea432 !important;
+}
+
+@media (min-height: 320px) {
+  .ui.footer.form-page { /* Increased specificity for SO snippet priority */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}

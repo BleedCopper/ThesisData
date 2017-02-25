@@ -8,9 +8,24 @@
     <script src="{% static 'jquery-1.11.3.min.js' %}"></script>
     <script src="{% static 'semantic-ui/dist/semantic.min.js' %}"></script>
     <link href="{% static 'semantic-ui/dist/semantic.min.css' %}" rel="stylesheet">
+    <link href="{% static 'semantic-ui/dist/themes/default/assets/fonts/' %}" rel="stylesheet">
+    <link href="{% static 'main.css' %}" rel="stylesheet">
 </head>
 <body>
+ <div class="ui inverted segment">
+        <div class="ui inverted secondary  menu">
+            <div class="menu">
+                <a href="/" class="item"><h3>Age and Gender Profiling</h3></a>
+            </div>
+            <div class="right menu">
+                <a href="/data-requirements" class="item"> Requirements </a>
+                <a href="/#about-us" class="item">About Us </a>
+            </div>
+        </div>
+    </div>
 {% block content %}
+
 {% endblock %}
+
 </body>
 </html>

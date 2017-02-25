@@ -89,7 +89,7 @@ def facebookhandler(request):
                 delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
                     # print("day diff: ", delta.days)
                 if (stat):
-                    Post.objects.create(user=user, text=dc.clean_data_twitter(pos), time=date_object.time())
+                    Post.objects.create(user=user, text=dc.clean_data_twitter(post), time=date_object.time())
 
             counter = Counter(tokenlist)
             data = []
@@ -99,7 +99,7 @@ def facebookhandler(request):
             request.session['plist'] = data
 
     # nothing went well
-    return HttpResponseRedirect('/?sent=true')
+    return HttpResponseRedirect('data-requirements/data-collection?sent=true')
 
 
 @csrf_exempt
@@ -126,7 +126,7 @@ def thanks(request, redirect_url='/?sent=true'):
     twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
                       authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'])
 
-    user_tweets = twitter.get_user_timeline()
+    user_tweets = twitter.get_user_timeline(include_rts=False, count=200)
     tuser = twitter.verify_credentials()
     uname = tuser['screen_name']
     print(uname)
@@ -173,4 +173,4 @@ def thanks(request, redirect_url='/?sent=true'):
         data.append(word)
 
     request.session['plist'] = data
-    return HttpResponseRedirect('/?sent=true')
+    return HttpResponseRedirect('data-requirements/data-collection?sent=true')

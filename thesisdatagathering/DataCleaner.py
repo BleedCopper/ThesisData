@@ -29,7 +29,8 @@ class DataCleaner:
                user = User.objects.get(username=name, source="Twitter")
                text = text.replace(name, str(user.id).zfill(5))
             except User.DoesNotExist:
-               User.objects.create(username=name, source="Twitter")
+               user = User.objects.create(username=name, source="Twitter")
+               text = text.replace(name, str(user.id).zfill(5))
 
 
 

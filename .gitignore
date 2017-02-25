@@ -7,3 +7,7 @@
 .idea/ThesisData.iml
 venv
 staticfiles
+*.pyc
+*.iml
+space
+*.iml
