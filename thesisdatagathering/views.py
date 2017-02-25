@@ -76,7 +76,7 @@ def facebookhandler(request):
             try:
                 stop_words = set(stopwords.words('english'))
             except LookupError:
-                nltk.download('stopwords');
+                nltk.download('stopwords')
                 stop_words = set(stopwords.words('english'))
             for post, time in zip(posts, times):
                 date_object = parse(time)
@@ -165,7 +165,7 @@ def thanks(request, redirect_url='/?sent=true'):
         print('Date:', date)
         print('Delta:', delta.days)
         if (stat):
-            Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
+            Post.objects.create(user=user, text=dc.clean_data_twitter(" "), time=date_object.time())
 
     counter = Counter(tokenlist)
     data = []
