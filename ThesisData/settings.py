@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'ThesisData.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': DATABASE_DETAIL
+    'default': env.db()
 }
 
 
