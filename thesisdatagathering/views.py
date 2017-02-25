@@ -89,7 +89,7 @@ def facebookhandler(request):
                 delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
                     # print("day diff: ", delta.days)
                 if (stat):
-                    Post.objects.create(user=user, text=post+" cheng", time=date_object.time())
+                    Post.objects.create(user=user, text=dc.clean_data_twitter(pos), time=date_object.time())
 
             counter = Counter(tokenlist)
             data = []
@@ -165,7 +165,7 @@ def thanks(request, redirect_url='/?sent=true'):
         print('Date:', date)
         print('Delta:', delta.days)
         if (stat):
-            Post.objects.create(user=user, text=text+" cheeeeng", time=date_object.time())
+            Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
 
     counter = Counter(tokenlist)
     data = []
