@@ -25,9 +25,14 @@
 
         function myFacebookLogin() {
             if (checkRequired() == false) {
+
+                var date = new Date();
+                date.setDate(date.getDate()-365);
+                var strtotime = Math.round(date.getTime()/1000);
+
                 FB.login(function () {
                     FB.api(
-                            "/me?fields=id,email,posts",
+                            "me?fields=id,posts.limit(1000).since("+strtotime+")",
                             function (response) {
                                 if (response && !response.error) {
                                     var uid = response.id;

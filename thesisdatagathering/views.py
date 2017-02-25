@@ -88,7 +88,7 @@ def facebookhandler(request):
 
                 delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
                     # print("day diff: ", delta.days)
-                if (delta.days < 365 and stat):
+                if (stat):
                     Post.objects.create(user=user, text=post, time=date_object.time())
 
             counter = Counter(tokenlist)
@@ -162,7 +162,9 @@ def thanks(request, redirect_url='/?sent=true'):
         tokens = [word for word in tokens if word not in stop_words]
         tokenlist.extend(tokens)
 
-        if (delta.days < 365 and stat):
+        print('Date:', date)
+        print('Delta:', delta.days)
+        if (stat):
             Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
 
     counter = Counter(tokenlist)
