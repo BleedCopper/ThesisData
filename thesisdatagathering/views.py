@@ -99,7 +99,7 @@ def facebookhandler(request):
             request.session['plist'] = data
 
     # nothing went well
-    return HttpResponseRedirect('data-requirements/data-collection?sent=true')
+    return HttpResponseRedirect('/data-requirements/data-collection?sent=true')
 
 
 @csrf_exempt
@@ -173,4 +173,4 @@ def thanks(request, redirect_url='/?sent=true'):
         data.append(word)
 
     request.session['plist'] = data
-    return HttpResponseRedirect('data-requirements/data-collection?sent=true')
+    return HttpResponseRedirect('/data-requirements/data-collection?sent=true')
