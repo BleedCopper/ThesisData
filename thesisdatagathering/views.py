@@ -21,6 +21,25 @@ from thesisdatagathering.models import User, Post
 CONSUMER_KEY = "6Ou9SSfowTYRYDsQJDX2g6pcV"
 CONSUMER_SECRET = "6OT7ybjNe6HL2kKa7SM3hXnW4dwtziWfFroiFHoSwVPV49nRnR"
 
+def clearSession(request):
+    del request.session['date']
+    del request.session['gender']
+    if 'twitter' in request.session:
+        del request.session['twitter']
+    if 'facebook' in request.session:
+        del request.session['facebook']
+
+    if 'date' not in request.session:
+        print("cleaaaaaaaaaaar")
+    else:
+        print("not cleaaaaaaaar")
+    return HttpResponseRedirect('/')
+
+def redirectFacebook(request):
+    if 'twitter' in request.session:
+        return HttpResponseRedirect('/data-requirements/data-collection?sent=true&method=facebook&complete=true')
+    else:
+        return HttpResponseRedirect('/data-requirements/data-collection?sent=true&method=facebook')
 
 @csrf_exempt
 def auth(request):
@@ -41,8 +60,13 @@ def auth(request):
 
     print(request.POST)
     request.session['request_token'] = auth_props
-    request.session['date'] = (request.POST['bdmonth'] + " " + request.POST['bdday'] + "," + request.POST['bdyear'])
-    request.session['gender'] = request.POST['gender']
+    if 'date' not in request.session:
+        print("OHHHH NOOOOOOOOOO")
+        request.session['date'] = (request.POST['bdmonth'] + " " + request.POST['bdday'] + "," + request.POST['bdyear'])
+        request.session['gender'] = request.POST['gender']
+    else:
+        print("ORAAAAAAAAAAAAAYTSUUUUU")
+
     return HttpResponseRedirect(auth_props['auth_url'])
 
 
@@ -97,9 +121,13 @@ def facebookhandler(request):
                 data.append(word)
 
             request.session['plist'] = data
+            request.session['facebook'] = 'true'
+            if 'date' not in request.session:
+                request.session['date'] = (request.POST['month'] + " " + request.POST['day'] + "," + request.POST['year'])
+                request.session['gender'] = request.POST['gender']
 
     # nothing went well
-    return HttpResponseRedirect('/data-requirements/data-collection?sent=true')
+    return HttpResponseRedirect('/data-requirements/data-collection?sent=true&method=facebook')
 
 
 @csrf_exempt
@@ -108,7 +136,7 @@ def thanks(request, redirect_url='/?sent=true'):
     oauth_token_secret = request.session['request_token']['oauth_token_secret']
 
     # twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
-                      # oauth_token, oauth_token_secret, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
+    #                   oauth_token, oauth_token_secret, client_args = {'proxies': {'https': 'http://proxy.dlsu.edu.ph:80'}})
     twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
                       oauth_token, oauth_token_secret)
 
@@ -173,4 +201,8 @@ def thanks(request, redirect_url='/?sent=true'):
         data.append(word)
 
     request.session['plist'] = data
-    return HttpResponseRedirect('/data-requirements/data-collection?sent=true')
+    request.session['twitter'] = 'true'
+    if('facebook' in request.session):
+        return HttpResponseRedirect('/data-requirements/data-collection?sent=true&method=twitter&complete=true')
+    else:
+        return HttpResponseRedirect('/data-requirements/data-collection?sent=true&method=twitter')

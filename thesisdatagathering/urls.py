@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^data-requirements/data-collection/$', TemplateView.as_view(template_name='data-collection.html'), name='datacollection'),
     url(r'^auth/?$', views.auth, name='oauth_auth'),
     url(r'^thanks/?$', views.thanks, name="twitter_callback"),
+    url(r'^clearSession/?$', views.clearSession, name="clearSession"),
+    url(r'^redirectFacebook/?$', views.redirectFacebook, name="redirectFacebook"),
     url(r'^facebookhandler/?$', views.facebookhandler, name="facebookhandler"),
 ]
