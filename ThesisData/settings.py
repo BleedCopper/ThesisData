@@ -41,8 +41,8 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
-DATABASE_DETAIL = env.db()
-DATABASE_DETAIL['OPTIONS']={'charset': 'utf8mb4'}
+#DATABASE_DETAIL = env.db()
+#DATABASE_DETAIL['OPTIONS']={'charset': 'utf8mb4'}
 
 # Application definition
 
@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'ThesisData.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': DATABASE_DETAIL
+    'default': env.db()
 }
 
 
