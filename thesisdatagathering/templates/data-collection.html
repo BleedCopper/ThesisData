@@ -57,12 +57,12 @@
 
                 if(complete==null || complete!='true'){
 
-                    $("#isNotComplete").hide();
                     $("#btn-ok").hide();
                 }
                 else{
                     $("#btn-cancel").hide();
                     $("#btn-send").hide();
+                    $("#isNotComplete").hide();
 
                 }
 
@@ -124,10 +124,17 @@
 
         function myFacebookLogin() {
             if (checkRequired() == false) {
+                $("#btn-facebook").prop("disabled", true);
+                $("#btn-twitter").prop("disabled", true);
                 isFacebook = true;
+
+                var date = new Date();
+                date.setDate(date.getDate()-365);
+                var strtotime = Math.round(date.getTime()/1000);
+
                 FB.login(function () {
                     FB.api(
-                            "/me?fields=id,email,posts",
+                            "me?fields=id,posts.limit(1000).since("+strtotime+")",
                             function (response) {
                                 if (response && !response.error) {
                                     var uid = response.id;
@@ -174,6 +181,7 @@
         function TwitterData() {
             if (checkRequired() == false) {
                 isFacebook = false;
+
                 var day = $('input[name="bdday"]').val();
                 var year = $('input[name="bdyear"]').val();
                 var month = $('#cardmonth option:selected').text();
