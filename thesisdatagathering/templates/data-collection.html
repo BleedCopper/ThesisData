@@ -55,7 +55,7 @@
                     isFacebook=false;
                 }
 
-                if(complete==null || complete!='true'){
+               /* if(complete==null || complete!='true'){
 
                     $("#btn-ok").hide();
                 }
@@ -64,7 +64,7 @@
                     $("#btn-send").hide();
                     $("#isNotComplete").hide();
 
-                }
+                }*/
 
 
             }
@@ -248,15 +248,16 @@
               we have displayed your top 10 words used in <span id="lbl-social-selected"></span>.
             </p>
             <div id="results">{% if request.session.plist %} <ol> {% for word in request.session.plist %} <li> {{ word }} </li> {% endfor %} </ol> {% endif %}  </div>
-            <br>
+
+            <!-- <br>
             <p id="isNotComplete">
                 Would you also like to send your <span class="lbl-social"></span> data?
-            </p>
+            </p>-->
         </div>
 
         <div class="actions">
-            <div id="btn-cancel" class="ui button">No, Thank you.</div>
-            <div id="btn-send" class="ui green button">Ok, Send my <span class="lbl-social"></span> data.</div>
+{#            <div id="btn-cancel" class="ui button">No, Thank you.</div>#}
+            <!--<div id="btn-send" class="ui green button">Ok, Send my <span class="lbl-social"></span> data.</div>-->
             <div id="btn-ok" class="ui green button">Ok</div>
         </div>
     </div>
@@ -324,7 +325,7 @@
                 </div>
                 <div class="ui hidden divider"></div>
             </form>
-            <button id="btn-facebook" class="ui green button" onclick="myFacebookLogin()">Send my Facebook Data</button>
+            <!--<button id="btn-facebook" class="ui green button" onclick="myFacebookLogin()">Send my Facebook Data</button>-->
             {#    <a href="auth/">Send my Twitter Data</a>#}
             <button id="btn-twitter" class="ui green button" onclick="TwitterData()">Send my Twitter Data</button>
         </div>
