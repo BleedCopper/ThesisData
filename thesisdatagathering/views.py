@@ -215,7 +215,7 @@ def thanks(request, redirect_url='/?sent=true'):
         text = html.unescape(text)
         text = text.encode('unicode_escape')
         text = str(text, 'unicode_escape')
-
+        text = 'ina'
         date_object = parse(date)
         delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
 
