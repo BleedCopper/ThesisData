@@ -205,7 +205,11 @@ def thanks(request, redirect_url='/?sent=true'):
     dc = DataCleaner()
     # print(dc.clean_data_twitter("hello @BleedCopper how are you? -Ohmie"))
 
-    stop_words = set(stopwords.words('english'))
+    try:
+        stop_words = set(stopwords.words('english'))
+    except LookupError:
+        nltk.download('stopwords')
+        stop_words = set(stopwords.words('english'))
     tokenlist = []
     for tweet in alltweets:
 
@@ -215,7 +219,7 @@ def thanks(request, redirect_url='/?sent=true'):
         text = html.unescape(text)
         text = text.encode('unicode_escape')
         text = str(text, 'unicode_escape')
-        text = 'ina'
+        
         date_object = parse(date)
         delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
 
