@@ -4,7 +4,8 @@ from thesisdatagathering.models import User
 
 
 class DataCleaner:
-
+    USERNAME = 'USERNAME'
+    URL = 'URL'
 
     def __init__(self):
         self.email_cleaner = re.compile(r'(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])',flags=re.MULTILINE)
@@ -20,23 +21,11 @@ class DataCleaner:
         text = self.email_cleaner.sub('',post_content, count=0)
         print("After Email Cleaning--> "+text)
 
-        #retrieve username
-        username_list = self.username_finder.findall(text)
+        #change handler to USERNAME
+        text = self.username_finder.sub(self.USERNAME, post_content,count=0)
 
-        for name in username_list:
-            try:
-               user = User.objects.get(username=name, source="Twitter")
-               text = text.replace(name, str(user.id).zfill(5))
-            except User.DoesNotExist:
-               user = User.objects.create(username=name, source="Twitter")
-               text = text.replace(name, str(user.id).zfill(5))
-
-
-
-        #then clean web links from tweet
-        text = self.link_cleaner.sub('', text, count=0)
-
-
+        #change links to URL
+        text = self.link_cleaner.sub(self.URL, text, count=0)
 
         return text
 

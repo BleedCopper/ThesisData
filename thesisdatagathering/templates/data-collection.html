@@ -70,6 +70,15 @@
             }
         });
 
+         function checkForm() {
+            // alert("hello");
+             if( checkRequired() == false) {
+              $("#btn-twitter").prop("disabled", false);
+            }else
+                $("#btn-twitter").prop("disabled", true);
+         }
+
+
         $(function(){
 
             $('#btn-cancel').click(function(){
@@ -93,7 +102,10 @@
                 console.log($(this).prop("checked"));
                 if($(this).prop("checked")){
                     $('#btn-facebook').prop("disabled", false);
-                    $('#btn-twitter').prop("disabled", false);
+                    if(checkRequired() == false)
+                        $('#btn-twitter').prop("disabled", false);
+                    else
+                         $('#btn-twitter').prop("disabled", true);
                 }
                 else{
                     $('#btn-facebook').prop("disabled", true);
@@ -181,7 +193,7 @@
         function TwitterData() {
             if (checkRequired() == false) {
                 isFacebook = false;
-
+                 $("#btn-twitter").prop("disabled", false);
                 var day = $('input[name="bdday"]').val();
                 var year = $('input[name="bdyear"]').val();
                 var month = $('#cardmonth option:selected').text();
@@ -192,7 +204,8 @@
 
                 $('#send').submit();
                 {#                $.redirect(URL, data);#}
-            }
+            }else
+                $("#btn-twitter").prop("disabled", true);
             {#                window.location = 'auth?day=' + day+'&year='+year+'&month='+month+"&gender="+gender;#}
         }
 
@@ -202,26 +215,41 @@
                 if ($('#cardmonth').val() == "") {
                     error = true;
                     $('#monthf').addClass('error');
-                }
+                }else
+                    $('#monthf').removeClass('error');
+
                 if ($('input[name="bdyear"]').val() == "") {
+                    error=true;
+                }
+                else{
                     var bdyear = +$('input[name="bdyear"]').val();
                     if (bdyear < 1900 || bdyear > 2016) {
                         error = true;
                         $('#yearf').addClass('error');
                     }
+                    else{
+                         $('#yearf').removeClass('error');
+                    }
                 }
                 if ($('input[name="bdday"]').val() == "") {
+                    error=true;
+                }
+                else{
                     var bdday = +$('input[name="bdday"]').val();
+                    console.log(bdday);
                     if (bdday < 1 || bdday > 31) {
                         error = true;
                         $('#dayf').addClass('error');
                     }
-
+                    else{
+                         $('#dayf').removeClass('error');
+                    }
                 }
                 if (!$("#permit").is(':checked')) {
                     error = true;
                     $('#permitf').addClass('error');
-                }
+                }else
+                    $('#permitf').removeClass('error');
 
             return error;
             }
@@ -292,7 +320,7 @@
 
                     <div class="fourteen wide field">
                         <div id="monthf" class="field">
-                            <select id="cardmonth" class="ui fluid search dropdown" name="bdmonth">
+                            <select id="cardmonth" class="ui fluid search dropdown" name="bdmonth" onchange="checkForm()">
                                 <option value="">Month</option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
@@ -309,17 +337,17 @@
                             </select>
                         </div>
                         <div id="dayf" class="field">
-                            <input type="number" name="bdday" maxlength="4" placeholder="Day">
+                            <input type="number" id="bdday" name="bdday" maxlength="2" placeholder="Day" onkeyup="checkForm()">
                         </div>
                         <div id="yearf" class="field">
-                            <input type="number" name="bdyear" maxlength="4" placeholder="Year">
+                            <input type="number" id="bdyear" name="bdyear" maxlength="4" placeholder="Year" onkeyup="checkForm()">
                         </div>
                     </div>
                 </div>
 
-                <div class="field" id="permitf">
+                <div class="inline field" id="permitf">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="permit" tabindex="0">
+                        <input type="checkbox" name="permit" id="permit" tabindex="0">
                         <label>*I allow my data to be used for the research study</label>
                     </div>
                 </div>

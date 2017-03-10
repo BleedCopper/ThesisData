@@ -1,6 +1,6 @@
 import datetime
 from collections import Counter
-
+import html
 import collections
 
 import nltk
@@ -154,7 +154,35 @@ def thanks(request, redirect_url='/?sent=true'):
     twitter = Twython(settings.TWITTER_KEY, settings.TWITTER_SECRET,
                       authorized_tokens['oauth_token'], authorized_tokens['oauth_token_secret'])
 
+    alltweets = []
+
     user_tweets = twitter.get_user_timeline(include_rts=False, count=200)
+
+    # save most recent tweets
+    alltweets.extend(user_tweets)
+
+    # save the id of the oldest tweet less one
+    print(alltweets[-1])
+    print(alltweets[-1]['id'])
+    oldest = alltweets[-1]['id'] - 1
+    date = alltweets[-1]['created_at']
+    date_object = parse(date)
+    delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
+
+    # keep grabbing tweets until there are no tweets left to grab
+    while len(user_tweets) > 0 and delta.days < 365:
+        user_tweets = twitter.get_user_timeline(include_rts=False, count=200, max_id=oldest)
+
+        # save most recent tweets
+        alltweets.extend(user_tweets)
+
+        # update the id of the oldest tweet less one
+        oldest = alltweets[-1]['id'] - 1
+
+        date = alltweets[-1]['created_at']
+        date_object = parse(date)
+        delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
+
     tuser = twitter.verify_credentials()
     uname = tuser['screen_name']
     print(uname)
@@ -173,15 +201,18 @@ def thanks(request, redirect_url='/?sent=true'):
         user = User.objects.create(username=uname, gender=request.session['gender'], birthdate=date_object,
                                    source="Twitter")
 
+    print("tweetlen", len(alltweets))
     dc = DataCleaner()
     # print(dc.clean_data_twitter("hello @BleedCopper how are you? -Ohmie"))
 
     stop_words = set(stopwords.words('english'))
     tokenlist = []
-    for tweet in user_tweets:
+    for tweet in alltweets:
 
         text = tweet['text']
         date = tweet['created_at']
+
+        text = html.unescape(text)
 
         date_object = parse(date)
         delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
@@ -192,8 +223,11 @@ def thanks(request, redirect_url='/?sent=true'):
 
         print('Date:', date)
         print('Delta:', delta.days)
-        if (stat):
+        if (stat and delta.days<365):
             Post.objects.create(user=user, text=dc.clean_data_twitter(text), time=date_object.time())
+        else:
+            print(stat, delta.days)
+            break
 
     counter = Counter(tokenlist)
     data = []
