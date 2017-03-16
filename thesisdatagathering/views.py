@@ -217,7 +217,7 @@ def thanks(request, redirect_url='/?sent=true'):
         date = tweet['created_at']
 
         text = html.unescape(text)
-        
+
         date_object = parse(date)
         delta = datetime.datetime.now().replace(tzinfo=None) - date_object.replace(tzinfo=None)
 
