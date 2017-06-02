@@ -62,7 +62,7 @@ def auth(request):
     request.session['request_token'] = auth_props
     if 'date' not in request.session:
         print("OHHHH NOOOOOOOOOO")
-        request.session['date'] = (request.POST['bdmonth'] + " " + request.POST['bdday'] + "," + request.POST['bdyear'])
+        request.session['date'] = (request.POST['bdmonth'] + " " + request.POST['bdday'] + ", " + request.POST['bdyear'])
         request.session['gender'] = request.POST['gender']
     else:
         print("ORAAAAAAAAAAAAAYTSUUUUU")
