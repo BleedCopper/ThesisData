@@ -1,3 +1,34 @@
+body{
+    color: #00122f !important;
+}
+
+#alright-btn{
+    border: 1px solid white !important;
+    color: white !important;
+    background: transparent !important;
+}
+
+#alright-btn:hover{
+    color: #0a439d !important;
+    background: white !important;
+}
+a, button, footer, li, form, input{
+   font-family: 'Roboto Slab Light', serif !important;
+}
+
+#cardmonth, .field{
+    height: inherit !important;
+}
+
+ul, form, input{
+    font-size: 18px !important;
+    line-height: 30px !important;
+}
+p{
+    font-size: 18px !important;
+    font-family: 'Roboto Slab Light', serif;
+    line-height: 30px !important;
+}
 .inverted.segment{
     border-radius: 0;
     margin:0;
@@ -7,30 +38,104 @@
     line-height: 35px;
     font-weight: bolder;
 }
-.subheading{
-    font-size: 22px;
-    font-weight: bold;
+
+#home-menu{
+    border: none !important;
 }
 
+#home-menu:hover{
+    background: transparent !important;
+    text-decoration: underline !important;
+    color: #0a439d !important;
+}
+
+.menu .item{
+    border: 1px solid #0a439d !important;
+    color: #0a439d !important;
+    font-size: 14px !important;
+}
+
+.menu .item:hover{
+    color: white !important;
+    background-color: #0a439d !important;
+
+}
+
+
+.padded-segment{
+    padding-right: 5% !important;
+    padding-left: 5% !important;
+}
+#navbar{
+    box-shadow: none !important;
+    border: none !important;
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+}
+
+.remove-margins{
+    margin: 0px !important;
+}
+#thumbnail{
+    width: 80% !important;
+    height: 300px !important;
+}
+
+.remove-padding{
+    padding: 0px !important;
+}
+.subheading{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center !important;
+    padding: 15% 10% 15% 10% !important;
+    height: inherit !important;
+    line-height: 40px !important;
+}
+
+footer{
+    background-color: #00122f !important;
+}
 .heading-content{
     font-size: 16px;
+}
+
+.white-text{
+    color: white !important;
+}
+
+.white-background{
+    background: white !important;
+}
+.yellow-background{
+    background: #edbe00 !important;
+}
+.blue-background{
+    background: #0a439d !important;
+}
+
+.blue-text{
+    color: #0a439d !important;
+}
+.dark-blue{
+    background: #00122f !important;
 }
 
 .no-line-height{
     line-height: 0px !important;
 }
 
+#contact-info{
+    text-align: center !important;
+}
 #about-us{
-   background-color:#0f0f10;
     width: 100%;
-    color:white;
+    padding-top: 10% !important;
+    padding-bottom: 10% !important;
 }
 
-.name-label{
-    color:white !important;
-}
 a.email-label{
-    color: #0ea432 !important;
+    color: #0a439d !important;
 }
 
 @media (min-height: 320px) {

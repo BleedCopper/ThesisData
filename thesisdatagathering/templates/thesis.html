@@ -7,78 +7,99 @@
 
         $('.ui.radio.checkbox') .checkbox() ;
         $('.ui.checkbox') .checkbox() ;
-
+        $('#home-menu').html("");
         function goToDataRequirements(){
             window.location.href ="data-requirements";
         }
+
     </script>
 
-
-    <div class="ui container">
+    <div class="ui container remove-margins">
+        <div class="ui basic very padded centered aligned segment remove-margins">
+            <img id="thumbnail" class="ui fluid centered image"  src="{% static "images/thesis_thumbnail.jpg" %}">
+        </div>
+    </div>
+    {% comment %}<div class="ui container">
         <div class="ui basic very padded center aligned segment">
                 <span class="page-title">A Model for Age and Gender Profiling<br> of Social Media Accounts Based on Post Contents</span>
         </div>
-    </div>
+    </div>{% endcomment %}
     <div class="ui container">
-        <div class="ui basic center aligned segment">
-            <span class="subheading">What is it about?</span><br><br>
-            <p class="heading-content">
-                It is a study that aims to reduce anonymity by identifying the age and gender of social media accounts. <br>
-                By reducing online anonymity, we aim to reduce cybercrimes and support business intelligence.
-            </p>
-        </div>
-    </div>
-
-    <div class="ui container">
-        <div class="ui basic center aligned segment">
-            <span class="subheading">Help in need...</span><br><br>
-            <p class="heading-content">
-                However, to build the system, we need thousands of tweets from Twitter. <br><br>
-                With this, may we ask for your aid in collecting this data?<br>
-                Rest assured that we respect your privacy, and will remove your identity <br>
-                from the posts and tweets that we will be able to gather from your accounts.
-            </p>
-            <button class="ui green button" onclick="goToDataRequirements()">Alright!</button>
-        </div>
-    </div>
-    <br><br><br>
-    <div id="about-us" class="ui container">
-        <div class="ui basic very padded center aligned  segment">
-            <span class="subheading">About Us</span><br><br>
-            <p class="heading-content">
-                We are senior BS Computer Science with specialization in Software Technology students that are currently completing our undergraduate thesis. <br>
-                Our study is under the supervision of Ms. Charibeth K. Cheng from the College of Computer Studies.
-            </p>
-            <div class="ui horizontal list">
-                <div class="item center aligned">
-                    <img class="ui centered small circular image" src="{% static "images/ms_chari.jpg" %} "> <br><br>
-                    <div class="ui header name-label">Charibeth Cheng</div>
-                    <a class="email-label">chari.cheng@delasalle.ph</a>
-                </div>
-                <div class="item center aligned">
-                    <img class="ui centered small circular image" src="{% static "images/cheng.jpg" %} "> <br><br>
-                    <div class="ui header name-label">Jan Kristoffer Cheng</div>
-                    <a class="email-label">jan_kristoffer_cheng@dlsu.edu.ph</a>
-                </div>
-                <div class="item center aligned">
-                    <img class="ui centered small circular image" src="{% static "images/avril.jpg" %} "> <br><br>
-                    <div class="ui header name-label">Avril Ranezca Fernandez</div>
-                    <a class="email-label">avril_fernandez@dlsu.edu.ph</a>
-                </div>
-                <div class="item center aligned">
-                    <img class="ui centered small circular image" src="{% static "images/rissa.jpg" %} "> <br><br>
-                    <div class="ui header name-label">Rissa Grace Marie Quindoza</div>
-                    <a class="email-label">rissa_quindoza@dlsu.edu.ph</a>
-                </div>
-                <div class="item center aligned">
-                    <img class="ui centered small circular image" src="{% static "images/shayane.jpg" %} "> <br><br>
-                    <div class="ui header name-label">Shayane Tan</div>
-                    <a class="email-label">shayane_tan@dlsu.edu.ph</a>
-                </div>
+        <div class="ui grid">
+            <div class="ten wide column middle aligned yellow-background">
+                <div class="ui centered subheading ">WHAT IS IT ABOUT?</div>
+            </div>
+            <div class="six wide column">
+                <p class="heading-content">
+                    It is a study that aims to reduce anonymity by <br> identifying the age and gender of social media accounts. <br>
+                    <br> By reducing online anonymity, we aim to reduce cybercrimes and support business intelligence.
+                </p>
             </div>
         </div>
+
+        <div class="ui grid">
+            <div class="ten wide column middle aligned">
+                <p class="heading-content">
+                    However, to build the system, we need thousands of tweets from Twitter. <br><br>
+                    With this, may we ask for your aid in collecting this data?<br>
+                    Rest assured that we respect your privacy, and will remove your identity <br>
+                    from the posts and tweets that will be gathered from your accounts.
+                </p>
+            </div>
+            <div class="six wide column middle aligned blue-background">
+                <div class="subheading white-text">
+                    <span>WOULD YOU HELP US?</span><br><br>
+                    <button id="alright-btn" class="huge ui button"
+                            onclick="goToDataRequirements()">Alright!
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="about-us" class="ui grid">
+            <div class="sixteen wide column">
+                <h1>ABOUT US</h1>
+                <p class="heading-content">
+                    We are senior BS Computer Science with specialization in Software Technology<br> students that are currently completing our undergraduate thesis.
+                    Our study is under <br> the supervision of Ms. Charibeth K. Cheng from the College of Computer Studies.
+                </p>
+            </div>
+
+            <div class="sixteen wide column">
+                <div id="contact-info" class="ui horizontal list">
+                    <div class="item center aligned">
+                        <img class="ui centered small circular image" src="{% static "images/ms_chari.jpg" %} "> <br><br>
+                        <div class="ui header">Charibeth Cheng</div>
+                        <a class="email-label">chari.cheng@delasalle.ph</a>
+                    </div>
+                    <div class="item center aligned">
+                        <img class="ui centered small circular image" src="{% static "images/cheng.jpg" %} "> <br><br>
+                        <div class="ui header">Jan Kristoffer Cheng</div>
+                        <a class="email-label">jan_kristoffer_cheng@dlsu.edu.ph</a>
+                    </div>
+                    <div class="item center aligned">
+                        <img class="ui centered small circular image" src="{% static "images/avril.jpg" %} "> <br><br>
+                        <div class="ui header">Avril Ranezca Fernandez</div>
+                        <a class="email-label">avril_fernandez@dlsu.edu.ph</a>
+                    </div>
+                    <div class="item center aligned">
+                        <img class="ui centered small circular image" src="{% static "images/rissa.jpg" %} "> <br><br>
+                        <div class="ui header">Rissa Grace Marie Quindoza</div>
+                        <a class="email-label">rissa_quindoza@dlsu.edu.ph</a>
+                    </div>
+                    <div class="item center aligned">
+                        <img class="ui centered small circular image" src="{% static "images/shayane.jpg" %} "> <br><br>
+                        <div class="ui header">Shayane Tan</div>
+                        <a class="email-label">shayane_tan@dlsu.edu.ph</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <footer class="ui inverted vertical footer center aligned segment">
-        <div class="ui container">Age and Gender Profiling 2017. All Rights Reserved</div>
+    <footer class="ui vertical footer center aligned segment dark-blue white-text">
+        <div class="ui container"><span>Age and Gender Profiling 2017. All Rights Reserved</span></div>
     </footer>
 {% endblock content %}
+

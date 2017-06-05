@@ -20,44 +20,63 @@
 
     </script>
     <div class="ui container">
-        <div class="ui basic very padded segment">
-            <h2>Here are few requirements before proceeding</h2>
-            <h3>I am a participant who...</h3>
-            <ul>
-                <li>is at least <b>18</b> years old or above</li>
-                <li>is residing in the Philippines</li>
-                <li>lived in the Philippines for at least <b>8</b> years</li>
-               {% comment %} <li>is a Facebook user using a personal account OR</li>{% endcomment %}
-                <li>is a Twitter user using a personal account</li>
-            </ul>
+        <div class="ui basic segment padded-segment">
+            <h1>Here are few requirements before proceeding</h1><br><br>
 
-            <h3>As a participant, I...</h3>
-            <ul>
-                <li>agree to grant the researcher's app access to my Twitter data</li>
-                <li>agree to provide the following information:
+            <div class="ui grid">
+
+                <div class="six wide column middle aligned">
+                     <div class="ui centered subheading">I am a participant who...</div>
+                </div>
+                <div class="ten wide column blue-background white-text remove-padding">
                     <ul>
-                        <li>Gender</li>
-                        <li>Birthdate</li>
-{#                        <li>Facebook ID</li>#}
-                        <li>Twitter handle</li>
+                        <li>is at least <b>18</b> years old or above</li>
+                        <li>is residing in the Philippines</li>
+                        <li>lived in the Philippines for at least <b>8</b> years</li>
+                       {% comment %} <li>is a Facebook user using a personal account OR</li>{% endcomment %}
+                        <li>is a Twitter user using a personal account</li>
                     </ul>
-                </li>
-                <li>ensure that the information I will be entering is correct</li>
-            </ul>
+
+                </div>
+            </div>
+
+            <div class="ui grid">
+
+                <div class="six wide column middle aligned yellow-background">
+                    <div class="ui centered subheading">As a participant, I...</div>
+                </div>
+                <div class="ten wide column remove-padding">
+                    <ul class="remove-margins">
+                        <li>agree to grant the researcher's app access to my Twitter data</li>
+                        <li>agree to provide the following information:
+                            <ul>
+                                <li>Gender</li>
+                                <li>Birthdate</li>
+        {#                        <li>Facebook ID</li>#}
+                                <li>Twitter handle</li>
+                            </ul>
+                        </li>
+                        <li>ensure that the information I will be entering is correct</li>
+                    </ul>
+                </div>
+            </div>
+
+            <br><br>
             <h2>Also, please be reminded that...</h2>
             <ul>
                 <li>any information collected would be anonymized</li>
-                <li>after the duration of the study (until August 2017), any information collected would be disposed</li>
+                <li>after the duration of the study <b>(until August 2017)</b>, any information collected would be disposed</li>
                 <li>if you have any concerns or questions about the study, feel free to <a href="/#about-us" class="email-label"><b> contact us <b> </a></li>
             </ul>
 
+            <br><br>
              <div class="field">
                 <div class="ui checkbox">
                   <input id="cbx-agree" tabindex="0" type="checkbox">
-                  <label>I understand and agree to the Terms and Conditions stated above.</label>
+                  <label><h3>I understand and agree to the Terms and Conditions stated above.</h3></label>
                 </div>
             </div> <br>
-            <button id="btn-agree" class="ui green button" onclick="goToDataCollection()">Let's go!</button>
+            <button id="btn-agree" class="huge ui button yellow-background" onclick="goToDataCollection()">Continue</button>
 
 
            {% comment %} <span>

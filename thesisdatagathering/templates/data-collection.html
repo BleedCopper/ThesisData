@@ -292,7 +292,7 @@
     <div class="ui container">
         <div class="ui basic very padded segment">
             <form id="send" class="ui form" method="post" action="{% url 'thesisdatagathering:oauth_auth' %}">
-                <div class="ui dividing header">Personal Information</div>
+                <div class="ui dividing header"><h2>Personal Information</h2></div>
                 <div class="inline fields">
                     <div class="two wide field">
                         <label for="gender">*Gender:</label>
@@ -348,14 +348,14 @@
                 <div class="inline field" id="permitf">
                     <div class="ui checkbox">
                         <input type="checkbox" name="permit" id="permit" tabindex="0">
-                        <label>*I allow my data to be used for the research study</label>
+                        <label><p>*I allow my data to be used for the research study</p></label>
                     </div>
                 </div>
                 <div class="ui hidden divider"></div>
             </form>
             <!--<button id="btn-facebook" class="ui green button" onclick="myFacebookLogin()">Send my Facebook Data</button>-->
             {#    <a href="auth/">Send my Twitter Data</a>#}
-            <button id="btn-twitter" class="ui green button" onclick="TwitterData()">Send my Twitter Data</button>
+            <button id="btn-twitter" class="huge ui button yellow-background" onclick="TwitterData()">Send my Twitter Data</button>
         </div>
     </div>
     <footer class="ui inverted vertical footer center aligned segment form-page">
