@@ -1,32 +1,48 @@
+@font-face {
+    font-family: RobotoSlabLight;
+    src: url(RobotoSlab-Light.ttf);
+}
+
 body{
     color: #00122f !important;
 }
 
-#alright-btn{
-    border: 1px solid white !important;
+.custom-container{
+    height: 600px !important;
+}
+#alright-btn, #btn-agree, #btn-twitter{
     color: white !important;
-    background: transparent !important;
+    background: #18a597 !important;
 }
 
-#alright-btn:hover{
-    color: #0a439d !important;
-    background: white !important;
+.left-label{
+    font-size: 20px !important;
 }
-a, button, footer, li, form, input{
-   font-family: 'Roboto Slab Light', serif !important;
+
+#container-1{
+    padding-top: 2% !important;
+    padding-bottom: 2% !important;
+}
+
+#alright-btn:hover, #btn-agree:hover, #btn-twitter:hover{
+    background: #15897d !important;
+}
+
+a, button, footer, li{
+   font-family: RobotoSlabLight !important;
 }
 
 #cardmonth, .field{
     height: inherit !important;
 }
 
-ul, form, input{
-    font-size: 18px !important;
+ul{
+    font-size: 15px !important;
     line-height: 30px !important;
 }
 p{
     font-size: 18px !important;
-    font-family: 'Roboto Slab Light', serif;
+    font-family: RobotoSlabLight !important;
     line-height: 30px !important;
 }
 .inverted.segment{
@@ -43,23 +59,17 @@ p{
     border: none !important;
 }
 
-#home-menu:hover{
-    background: transparent !important;
-    text-decoration: underline !important;
-    color: #0a439d !important;
-}
 
-.menu .item{
-    border: 1px solid #0a439d !important;
-    color: #0a439d !important;
+.menu a{
     font-size: 14px !important;
-}
-
-.menu .item:hover{
     color: white !important;
-    background-color: #0a439d !important;
-
 }
+
+/*.menu .item:hover{
+    color: #0a439d !important;
+    background-color: white !important;
+
+}*/
 
 
 .padded-segment{
@@ -69,10 +79,16 @@ p{
 #navbar{
     box-shadow: none !important;
     border: none !important;
+    border-radius: 0px !important;
     padding-left: 100px !important;
     padding-right: 100px !important;
+    width: 100% !important;
+    background: #0e5957;
 }
 
+.green-background{
+    background: #18a597 !important;
+}
 .remove-margins{
     margin: 0px !important;
 }
@@ -88,13 +104,15 @@ p{
     font-size: 25px;
     font-weight: bold;
     text-align: center !important;
-    padding: 15% 10% 15% 10% !important;
-    height: inherit !important;
-    line-height: 40px !important;
 }
 
 footer{
-    background-color: #00122f !important;
+    background-color: #0e5957 !important;
+}
+
+.header-label{
+    font-size: 30px !important;
+    font-weight: bolder;
 }
 .heading-content{
     font-size: 16px;
@@ -135,7 +153,7 @@ footer{
 }
 
 a.email-label{
-    color: #0a439d !important;
+    color: #18a597 !important;
 }
 
 @media (min-height: 320px) {

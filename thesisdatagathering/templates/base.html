@@ -4,31 +4,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thesis</title>
+    <meta property="og:image" content="http://103.253.145.47:64704/static/images/thesis_thumbnail.jpg"/>
+    <title>Thesis: Age and Gender Profiling</title>
     <script src="{% static 'jquery-1.11.3.min.js' %}"></script>
     <script src="{% static 'semantic-ui/dist/semantic.min.js' %}"></script>
     <script src="{% static 'semantic-ui/dist/components/form.min.js' %}"></script>
     <link href="{% static 'semantic-ui/dist/components/form.min.css' %}" rel="stylesheet">
     <link href="{% static 'semantic-ui/dist/semantic.min.css' %}" rel="stylesheet">
     <link href="{% static 'semantic-ui/dist/themes/default/assets/fonts/' %}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    {% comment %}    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">{% endcomment %}
     <link href="{% static 'main.css' %}" rel="stylesheet">
 </head>
 <body>
-    <div id="navbar" class="ui segment remove-margins">
-        <div class="ui secondary menu">
-            <div class="menu">
-                <a href="/" id="home-menu" class="item"><h3>AGE AND GENDER PROFILING</h3></a>
-            </div>
-            <div class="right menu">
-                <a href="/data-requirements" class="item"> REQUIREMENTS </a>
-                <a href="/#about-us" class="item">ABOUT US </a>
-            </div>
+{#    <div  class="ui fixed top sticky segment remove-margins">#}
+{#        <div class="ui  secondary menu">#}
+{#            <div class="menu">#}
+{#                <a href="/" id="home-menu" class="item"><h3>AGE AND GENDER PROFILING</h3></a>#}
+{#            </div>#}
+{#            <div class="right menu">#}
+{#                <a href="/data-requirements" class="item"> REQUIREMENTS </a>#}
+{#                <a href="/#about-us" class="item">ABOUT US </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+<div id="navbar" class="ui top fixed huge menu">
+    <div class="ui container">
+        <a href="/" id="home-menu" class="item"><h3>Age and Gender Profiling</h3></a>
+        <div class="right menu">
+            <a href="/data-requirements" class="item"> Requirements</a>
+            <a href="/#about-us" class="item">About Us</a>
         </div>
+        {#    </div>#}
     </div>
+
+</div>
+
+
+
 {% block content %}
 
 {% endblock %}
-
 </body>
 </html>

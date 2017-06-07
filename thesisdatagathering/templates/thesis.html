@@ -1,22 +1,22 @@
-
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
 
     <script>
 
-        $('.ui.radio.checkbox') .checkbox() ;
-        $('.ui.checkbox') .checkbox() ;
+        $('.ui.radio.checkbox').checkbox();
+        $('.ui.checkbox').checkbox();
         $('#home-menu').html("");
-        function goToDataRequirements(){
-            window.location.href ="data-requirements";
+        function goToDataRequirements() {
+            window.location.href = "data-requirements";
         }
 
     </script>
 
-    <div class="ui container remove-margins">
+    <br><br><br>
+    <div class="ui container">
         <div class="ui basic very padded centered aligned segment remove-margins">
-            <img id="thumbnail" class="ui fluid centered image"  src="{% static "images/thesis_thumbnail.jpg" %}">
+            <img id="thumbnail" class="ui fluid centered image" src="{% static "images/thesis_thumbnail.jpg" %}">
         </div>
     </div>
     {% comment %}<div class="ui container">
@@ -24,52 +24,75 @@
                 <span class="page-title">A Model for Age and Gender Profiling<br> of Social Media Accounts Based on Post Contents</span>
         </div>
     </div>{% endcomment %}
-    <div class="ui container">
-        <div class="ui grid">
-            <div class="ten wide column middle aligned yellow-background">
-                <div class="ui centered subheading ">WHAT IS IT ABOUT?</div>
-            </div>
-            <div class="six wide column">
-                <p class="heading-content">
-                    It is a study that aims to reduce anonymity by <br> identifying the age and gender of social media accounts. <br>
-                    <br> By reducing online anonymity, we aim to reduce cybercrimes and support business intelligence.
-                </p>
+    <div id="container-1" class="green-background">
+        <div class="ui basic segment very padded">
+            <div class="ui grid white-text">
+                <div class="sixteen wide column middle aligned">
+                    <div class="ui centered subheading ">WHAT IS IT ABOUT?</div>
+                </div>
+                <div class="sixteen wide column middle aligned">
+                    <div class="ui center aligned container">
+                        <p class="heading-content">
+                            It is a study that aims to reduce anonymity by <br> identifying the age and gender of social
+                            media accounts. <br>
+                            <br> By reducing online anonymity, <br> we aim to reduce cybercrimes and support business
+                            intelligence.
+                        </p>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        <div class="ui grid">
-            <div class="ten wide column middle aligned">
-                <p class="heading-content">
-                    However, to build the system, we need thousands of tweets from Twitter. <br><br>
+    </div>
+
+    <div>
+         <div class="ui basic segment very padded">
+            <div class="ui grid">
+                <div class="sixteen wide column middle aligned">
+                    <div class="ui centered subheading ">WILL YOU HELP US?</div>
+                </div>
+                <div class="sixteen wide column middle aligned">
+                    <div class="ui center aligned container">
+                        <p class="heading-content">
+                            However, to build the system, we need thousands of tweets from Twitter. <br><br>
                     With this, may we ask for your aid in collecting this data?<br>
                     Rest assured that we respect your privacy, and will remove your identity <br>
                     from the posts and tweets that will be gathered from your accounts.
-                </p>
-            </div>
-            <div class="six wide column middle aligned blue-background">
-                <div class="subheading white-text">
-                    <span>WOULD YOU HELP US?</span><br><br>
-                    <button id="alright-btn" class="huge ui button"
+                        </p>
+                        <button id="alright-btn" class="huge ui button"
                             onclick="goToDataRequirements()">Alright!
-                    </button>
-                </div>
+                        </button>
+                    </div>
 
+                </div>
             </div>
         </div>
 
-        <div id="about-us" class="ui grid">
-            <div class="sixteen wide column">
-                <h1>ABOUT US</h1>
-                <p class="heading-content">
-                    We are senior BS Computer Science with specialization in Software Technology<br> students that are currently completing our undergraduate thesis.
-                    Our study is under <br> the supervision of Ms. Charibeth K. Cheng from the College of Computer Studies.
-                </p>
-            </div>
+    </div>
+    <div class="ui container">
+        <div class="ui divider"></div>
 
-            <div class="sixteen wide column">
+    </div>
+    <div>
+
+        <div class="ui basic segment very padded">
+            <div class="sixteen wide column " style="text-align: center;">
+                <div class="ui container center aligned">
+                    <h1>ABOUT US</h1>
+                    <p class="heading-content">
+                        We are senior BS Computer Science with specialization in Software Technology<br> students that
+                        are currently completing our undergraduate thesis.
+                        Our study is under <br> the supervision of Ms. Charibeth K. Cheng from the College of Computer
+                        Studies.
+                    </p>
+                </div>
+                <div class="ui hidden divider">
+                </div>
                 <div id="contact-info" class="ui horizontal list">
                     <div class="item center aligned">
-                        <img class="ui centered small circular image" src="{% static "images/ms_chari.jpg" %} "> <br><br>
+                        <img class="ui centered small circular image" src="{% static "images/ms_chari.jpg" %} ">
+                        <br><br>
                         <div class="ui header">Charibeth Cheng</div>
                         <a class="email-label">chari.cheng@delasalle.ph</a>
                     </div>
@@ -96,10 +119,11 @@
                 </div>
             </div>
 
+
         </div>
     </div>
-    <footer class="ui vertical footer center aligned segment dark-blue white-text">
-        <div class="ui container"><span>Age and Gender Profiling 2017. All Rights Reserved</span></div>
+    <footer class="ui vertical footer center aligned segment white-text">
+        <div class="ui container"><span>Age and Gender Profiling 2017.</span></div>
     </footer>
 {% endblock content %}
 

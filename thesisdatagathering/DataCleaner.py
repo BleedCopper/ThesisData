@@ -25,7 +25,7 @@ class DataCleaner:
         text = self.username_finder.sub(self.USERNAME, post_content,count=0)
 
         #change links to URL
-        text = self.link_cleaner.sub(self.URL, text, count=0)
+        #text = self.link_cleaner.sub(self.URL, text, count=0)
 
         return text
 

@@ -20,15 +20,18 @@
 
     </script>
     <div class="ui container">
+        <br><br> <br>
         <div class="ui basic segment padded-segment">
-            <h1>Here are few requirements before proceeding</h1><br><br>
+            <div class="ui dividing header "><h1>Requirements</h1></div>
+
 
             <div class="ui grid">
 
-                <div class="six wide column middle aligned">
-                     <div class="ui centered subheading">I am a participant who...</div>
+                <div class="five wide column middle aligned">
+                     <span class="left-label">I am a participant who...</span>
+
                 </div>
-                <div class="ten wide column blue-background white-text remove-padding">
+                <div class="eleven wide column">
                     <ul>
                         <li>is at least <b>18</b> years old or above</li>
                         <li>is residing in the Philippines</li>
@@ -39,14 +42,17 @@
 
                 </div>
             </div>
+             <div class="ui container">
+                <div class="ui divider"></div>
 
+            </div>
             <div class="ui grid">
 
-                <div class="six wide column middle aligned yellow-background">
-                    <div class="ui centered subheading">As a participant, I...</div>
+                <div class="five wide column middle aligned">
+                    <span class="left-label">As a participant, I...</span>
                 </div>
-                <div class="ten wide column remove-padding">
-                    <ul class="remove-margins">
+                <div class="eleven wide column">
+                    <ul>
                         <li>agree to grant the researcher's app access to my Twitter data</li>
                         <li>agree to provide the following information:
                             <ul>
@@ -60,23 +66,34 @@
                     </ul>
                 </div>
             </div>
+            <div class="ui container">
+                <div class="ui divider"></div>
 
-            <br><br>
-            <h2>Also, please be reminded that...</h2>
-            <ul>
-                <li>any information collected would be anonymized</li>
-                <li>after the duration of the study <b>(until August 2017)</b>, any information collected would be disposed</li>
-                <li>if you have any concerns or questions about the study, feel free to <a href="/#about-us" class="email-label"><b> contact us <b> </a></li>
-            </ul>
+            </div>
+            <div class="ui grid">
+
+                <div class="five wide column middle aligned">
+                    <span class="left-label">Also, please be reminded that...</span>
+                </div>
+                <div class="eleven wide column">
+                    <ul>
+                        <li>any information collected would be anonymized</li>
+                        <li>after the duration of the study <b>(until August 2017)</b>, any information collected would be disposed</li>
+                        <li>if you have any concerns or questions about the study, feel free to <a href="/#about-us" class="email-label"><b> contact us <b> </a></li>
+                    </ul>
+                </div>
+            </div>
+
+
 
             <br><br>
              <div class="field">
                 <div class="ui checkbox">
                   <input id="cbx-agree" tabindex="0" type="checkbox">
-                  <label><h3>I understand and agree to the Terms and Conditions stated above.</h3></label>
+                  <label><b>I understand and agree to the Terms and Conditions stated above.</b></label>
                 </div>
             </div> <br>
-            <button id="btn-agree" class="huge ui button yellow-background" onclick="goToDataCollection()">Continue</button>
+            <button id="btn-agree" class="ui button yellow-background" onclick="goToDataCollection()">Continue</button>
 
 
            {% comment %} <span>
@@ -89,6 +106,6 @@
 
     </div>
     <footer class="ui inverted vertical footer center aligned segment">
-        <div class="ui container">Age and Gender Profiling 2017. All Rights Reserved</div>
+        <div class="ui container">Age and Gender Profiling 2017.</div>
     </footer>
 {% endblock content %}
