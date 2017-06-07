@@ -146,11 +146,11 @@ footer{
 #contact-info{
     text-align: center !important;
 }
-#about-us{
+/*#about-us{
     width: 100%;
     padding-top: 10% !important;
     padding-bottom: 10% !important;
-}
+}*/
 
 a.email-label{
     color: #18a597 !important;
